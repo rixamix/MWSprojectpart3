@@ -16,7 +16,7 @@ class DBHelper {
       switch(upgradeDb.oldVersion){
         case 0:
         upgradeDb.createObjectStore('restaurants',{
-          keypath: 'id'
+          keyPath: 'id'
         });
         case 1:
         const reviewsStore = upgradeDb.createObjectStore('reviews',{
@@ -63,72 +63,41 @@ static fetchAndCacheRestaurants(){
   /**
    * Fetch a restaurant by its ID.
    */
-  static fetchRestaurantById(id, callback) {
-    // fetch all restaurants with proper error handling.
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        const restaurant = restaurants.find(r => r.id == id);
-        if (restaurant) { // Got the restaurant
-          callback(null, restaurant);
-        } else { // Restaurant does not exist in the database
-          callback('Restaurant does not exist', null);
-        }
-      }
-    });
+  static fetchRestaurantById(id){
+    return DBHelper.fetchRestaurants()
+    .then(restaurants => restaurants.find( r => r.id === id));
   }
 
   /**
    * Fetch restaurants by a cuisine type with proper error handling.
    */
-  static fetchRestaurantByCuisine(cuisine, callback) {
-    // Fetch all restaurants  with proper error handling
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        // Filter restaurants to have only given cuisine type
-        const results = restaurants.filter(r => r.cuisine_type == cuisine);
-        callback(null, results);
-      }
-    });
+  static fetchRestaurantByCuisine(cuisine) {
+    return DBHelper.fetchRestaurants()
+    .then(restaurants => restaurants.filter( r => r.cuisine_type === cuisine));
   }
 
   /**
    * Fetch restaurants by a neighborhood with proper error handling.
    */
-  static fetchRestaurantByNeighborhood(neighborhood, callback) {
-    // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        // Filter restaurants to have only given neighborhood
-        const results = restaurants.filter(r => r.neighborhood == neighborhood);
-        callback(null, results);
-      }
-    });
+  static fetchRestaurantByNeighborhood(neighborhood) {
+    return DBHelper.fetchRestaurants()
+    .then(neighborhoods => restaurants.filter( r => r.neighborhood === neighborhood));
   }
 
   /**
    * Fetch restaurants by a cuisine and a neighborhood with proper error handling.
    */
-  static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, callback) {
-    // Fetch all restaurants
-    DBHelper.fetchRestaurants((error, restaurants) => {
-      if (error) {
-        callback(error, null);
-      } else {
-        let results = restaurants
-        if (cuisine != 'all') { // filter by cuisine
-          results = results.filter(r => r.cuisine_type == cuisine);
-        }
-        if (neighborhood != 'all') { // filter by neighborhood
-          results = results.filter(r => r.neighborhood == neighborhood);
-        }
-        callback(null, results);
+  static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood){
+    return DBHelper.fetchRestaurants()
+    .then(restaurants =>{
+      let results = restaurants;
+      if (cuisine !== 'all'){
+        results = results.filter(r => r.cuisine_type == cuisine);
       }
+      if (neighborhood !== 'all'){
+        results = results.filter( r => r.neighborhood == neighborhood);
+      }
+      return results;
     });
   }
 
@@ -234,12 +203,12 @@ static addReview(review){
 static sendDataWhenOnline(offline_obj){
   console.log('Offline OBJ', offline_obj);
   localStorage.setItem('data', JSON.stringify(offline_obj.data));
-  console.log(`Lcal Storage: ${offline_obj.object_type} stored`);
-  window.addEventListener('online', (event)=>{
+  console.log(`Local Storage: ${offline_obj.object_type} stored`);
+  window.addEventListener('online', (event) => {
     console.log('Browser: Online again!');
     let data = JSON.parse(localStorage.getItem('data'));
     console.log('updating and cleaning ui');
-    [... document.querySelectorALL(".reviews_offline")]
+    [...document.querySelectorAll(".reviews_offline")]
     .forEach(el =>{
       el.classList.remove("reviews_offline")
       el.querySelector(".offline_label").remove()

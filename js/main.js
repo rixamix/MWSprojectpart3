@@ -32,8 +32,8 @@ fetchNeighborhoods = () => {
   .then(neighborhoods => {
     self.neighborhoods = neighborhoods;
     fillNeighborhoodsHTML();
-  })
-  .catch(error => console.error(error));
+  }) //.catch(error => console.error(error));
+
 }
 
 

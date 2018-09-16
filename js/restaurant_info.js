@@ -23,24 +23,22 @@ window.initMap = () => {
 /**
  * Get current restaurant from page URL.
  */
-fetchRestaurantFromURL = (callback) => {
-  if (self.restaurant) { // restaurant already fetched!
-    callback(null, self.restaurant)
-    return;
+fetchRestaurantFromURL = () => {
+  if (self.restaurant){
+    return Promise.resolve(self.restaurant);
   }
-  const id = getParameterByName('id');
-  if (!id) { // no id found in URL
-    error = 'No restaurant id in URL'
-    callback(error, null);
+  const id = parseInt(getParameterByName('id'));
+  if (!id || id === NaN) {
+    return Promise.reject('No restaurant id in URL')
   } else {
-    DBHelper.fetchRestaurantById(id, (error, restaurant) => {
-      self.restaurant = restaurant;
+    return DBHelper.fetchRestaurantById(id)
+    .then(restaurant => {
       if (!restaurant) {
-        console.error(error);
-        return;
+        return Promise.reject(`Restaurant with ID ${id} was not found`)
       }
+      self.restaurant = restaurant;
       fillRestaurantHTML();
-      callback(null, restaurant)
+      return restaurant;
     });
   }
 }
@@ -70,9 +68,10 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
     fillRestaurantHoursHTML();
   }
   // fill reviews
-  fillReviewsHTML();
+console.log('populate reviews');
+DBHelper.fetchReviewsByRestId(restaurant.id)
+.then(reviews => fillReviewsHTML(reviews))
 }
-
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
@@ -160,7 +159,7 @@ addReview = () =>{
     restaurant_id: parseInt(review[3]),
     rating: parseInt(review[1]),
     name: review [0],
-    comments: review [2], substring(0,300),
+    comments: review [2].substring(0,300),
     createdAt: new Date()
   };
 
@@ -190,6 +189,17 @@ addReview =() =>{
   DBHelper.addReview(frontEndReview);
   addReviewHTML(frontEndReview);
   document.getElementById('review-form').reset();
+}
+
+addReviewHTML = (review) => {
+  if(document.getElementById('no-review')){
+    document.getElementById('no-review').remove();
+  }
+  const container = document.getElementById('reviews-container');
+  const ul = document.getElementById('reviews-list');
+
+  ul.insertBefore(createReviewHTML(review), ul.firstChild);
+  container.appendChild(ul);
 }
 /**
  * Add restaurant name to the breadcrumb navigation menu
