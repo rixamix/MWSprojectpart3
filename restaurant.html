@@ -5,7 +5,9 @@
   <!-- Normalize.css for better cross-browser consistency -->
   <meta name = "viewport" content='width=device-width initial-scale=1.0'/>
   <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
-  <link rel="stylesheet" href="css/styles.css" type="text/css">
+  <link rel="stylesheet" href="css/styles.css" type="text/css"/>
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#090979"/>
   <script type="application/javascript" charset="utf-8" src="sw.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/idb.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
@@ -55,12 +57,12 @@
     </section>
     <!-- End reviews -->
     <section id ="form-container">
-      <h2 id ="form-name"> Add a review </h2>
-      <form id ="review-form">
-        <label for="review-author"> Name:</label>
-        <input id="review-author" name = "name" type = "text"/>
+      <h2 id ="form-name"> Add a review </h2><br>
+      <form id ="review-form"><br>
+        <label for="review-author"> Name:</label><br>
+        <input id="review-author" name = "name" type = "text"/><br>
         <div class = "rating-container">
-          <p> Rating:</p>
+          <p> Rating:</p><br>
           <select aria-label="Rating select" id = "rating-select" name = "Rating">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -68,9 +70,9 @@
             <option value="4">4</option>
             <option value="5">5</option>
           </select>
-        </div>
-        <label for="review-comments"> Comments: </label>
-        <textarea id ="review-comments" name = "comments"></textarea>
+        </div><br>
+        <label for="review-comments"> Comments: </label><br>
+        <textarea id ="review-comments" name = "comments"></textarea><br>
         <div id ="form-error"> </div>
         <button class="submit-button" onclick="addReview()"> Add Review </button>
       </form>
