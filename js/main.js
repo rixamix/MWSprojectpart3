@@ -165,6 +165,7 @@ createRestaurantHTML = (restaurant) => {
   changeFavElementClass(favourite, restaurant.is_favorite)
   };
   changeFavElementClass(favourite, restaurant.is_favorite)
+  li.classList.add("fav_btn:onclick")
   li.append(favourite);
 
 

@@ -281,8 +281,23 @@ nav h1 a {
 	display: flex;
 	flex-direction: column;
 }
+
+.favorite_no{
+border: none;
+border-color: #fff;
+}
+
+.favorite_yes{
+color: red;
+border-color: #fff;
+}
 #reviews-container {
-  padding: 30px 20px 80px;
+  padding: 10px 20px 80px;
+	display: flex;
+}
+
+#form-name{
+	padding: 20px;
 	display: flex;
 }
 #form-container{
