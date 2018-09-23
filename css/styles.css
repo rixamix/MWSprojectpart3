@@ -47,7 +47,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 	flex-direction: column;
 }
 #footer {
-	position:fixed;
+	position:relative;
 	bottom: 0;
 	width: 100%;
   background-color: #444;
@@ -374,8 +374,13 @@ nav{
 	  text-transform: uppercase;
 	}
 	#restaurant-img {
+		opacity: 1;
 		width: 80%;
 		height: auto;
+		transition: opacity 0.3s;
+	}
+	img[data-src]{
+		opacity: 0;
 	}
 }
 

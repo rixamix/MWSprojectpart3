@@ -32,7 +32,8 @@ fetchNeighborhoods = () => {
   .then(neighborhoods => {
     self.neighborhoods = neighborhoods;
     fillNeighborhoodsHTML();
-  }) //.catch(error => console.error(error));
+  })//.catch(error => console.error(error));
+
 
 }
 
@@ -184,6 +185,7 @@ createRestaurantHTML = (restaurant) => {
   more.setAttribute('role', 'button');
   more.setAttribute('aria-label', `${restaurant.name} view details`);
   li.append(more);
+
 
   return li
 }

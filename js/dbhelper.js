@@ -1,4 +1,3 @@
-
 class DBHelper {
 
 
@@ -197,7 +196,7 @@ static addReview(review){
       return response.json();
     } else {return 'API call successful'}})
     .then((data)=> { console.log(`Fetch successful!`)})
-    .catch(error => conole.log('error:',error));
+    .catch(error => console.log('error:',error));
 }
 
 static sendDataWhenOnline(offline_obj){
