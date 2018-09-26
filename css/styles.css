@@ -288,8 +288,9 @@ border-color: #fff;
 }
 
 .favorite_yes{
-color: red;
-border-color: #fff;
+color: #ff5555;
+border-color: red;
+border-radius: 50%;
 }
 #reviews-container {
   padding: 10px 20px 80px;
@@ -384,12 +385,13 @@ nav{
 	}
 }
 
-@media only screen and (max-width: 443px){
+@media only screen and (max-width: 457px){
 	#restaurant-container, #reviews-container {
 		border-bottom: 1px solid #FEAB97;
 		border-top: 1px solid #fff;
 		padding: 10px 10px 10px;
 		width: 100%;
+	}
 	nav h1 a {
 		color: #fff;
 		font-size: 20pt;
@@ -397,21 +399,31 @@ nav{
 		letter-spacing: 1px;
 		text-transform: uppercase;
 	}
+	h2{
+		padding: 5px;
+	}
 
 	.filter-options {
 	  width: 100%;
 	  height: 40px;
-	  background-color: #FEAB97;
+	  background-color: #090979;
 	  align-items: center;
 	}
 
-	.filter-options h2 {
-	  color: white;
-	  font-size: 1rem;
-	  font-weight: normal;
-	  line-height: 1;
-	  margin: 5px;
+	.filter-options {
+		width: 100%;
+		height: 100px;
+		background-color: #090979;
+		align-items: center;
 	}
+		.filter-options h2 {
+		  color: white;
+		  font-size: 1rem;
+		  font-weight: normal;
+		  line-height: 1;
+		  margin: 5px;
+			padding-top: 10px;
+		}
 	.filter-options select {
 	  background-color: white;
 	  border: 1px solid #fff;
@@ -464,6 +476,12 @@ nav{
 	width: 100%;
 	height: auto;
 }
+.filter-options {
+	width: 100%;
+	height: 100px;
+	background-color: #090979;
+	align-items: center;
+}
 	.filter-options h2 {
 	  color: white;
 	  font-size: 1rem;
@@ -478,6 +496,9 @@ nav{
 		font-weight:100;
 		letter-spacing: 1px;
 		text-transform: uppercase;
+	}
+	h2{
+		padding: 5px;
 	}
 
 }
